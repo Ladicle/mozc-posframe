@@ -46,6 +46,18 @@
   "Face for description part of overlay candidate window."
   :group 'mozc-faces)
 
+(defcustom mozc-cand-posframe-border-width 1
+  "The border width used by mozc-cand-posframe.
+When 0, no border is showed."
+  :group 'mozc-cand-posframe
+  :type 'number)
+
+(defface mozc-cand-posframe-border-face
+  '((t (:background "gray50")))
+  "The border color of the posframe.
+Only `background` is used in this face."
+  :group 'mozc-cand-posframe)
+
 (defvar mozc-cand-posframe-position nil)
 (make-variable-buffer-local 'mozc-cand-posframe-position)
 
@@ -153,6 +165,8 @@
       (mozc-posframe--render (mozc-protobuf-get candidates 'candidate) footer-label focused-index
                              (string-width footer-label))
       (posframe-show (mozc-posframe--get-buffer)
+                     :internal-border-width mozc-cand-posframe-border-width
+                     :internal-border-color (face-attribute 'mozc-cand-posframe-border-face :background)
                      :position mozc-cand-posframe-position))))
 
 ;;;###autoload
